@@ -310,9 +310,11 @@ export default function HomePage() {
               recommendations.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="secondary" size="lg" className="gap-2">
-                Get a Free Consultation <ChevronRight className="h-4 w-4" />
-              </Button>
+              <Link to="/contact" target="_blank">
+                <Button variant="secondary" size="lg" className="gap-2">
+                  Get a Free Consultation <ChevronRight className="h-4 w-4" />
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

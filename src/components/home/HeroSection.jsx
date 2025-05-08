@@ -1,5 +1,6 @@
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 function HeroSection() {
   return (
@@ -8,27 +9,33 @@ function HeroSection() {
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
           <div className="space-y-4">
             <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Transform Your Engineering Business with a Powerful Digital Presence
+              Transform Your Engineering Business with a Powerful Digital
+              Presence
             </h1>
             <p className="text-gray-500 md:text-xl font-normal">
-              Focus on your engineering and business tasks, we'll handle your digital presence to help you
-              convince your next clients more easily and win even more jobs.
+              Focus on your engineering and business tasks, we'll handle your
+              digital presence to help you convince your next clients more
+              easily and win even more jobs.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 mt-6">
-              <Button size="lg" className="gap-2">
-                Get a Free Consultation <ChevronRight className="h-4 w-4" />
-              </Button>
-              <Button variant="outline" size="lg">
-                Explore Our Services
-              </Button>
+              <Link to="/contact" target="_blank">
+                <Button size="lg" className="gap-2">
+                  Get a Free Consultation <ChevronRight className="h-4 w-4" />
+                </Button>
+              </Link>
+              <Link to="/services" target="_blank">
+                <Button variant="outline" size="lg">
+                  Explore Our Services
+                </Button>
+              </Link>
             </div>
           </div>
           <div className="relative h-full">
             <div className="relative overflow-hidden rounded-lg shadow-xl">
-              <img 
-                src="/83416.jpg" 
-                alt="Digital solutions for engineering firms" 
-                className="w-full h-auto" 
+              <img
+                src="/83416.jpg"
+                alt="Digital solutions for engineering firms"
+                className="w-full h-auto"
               />
             </div>
           </div>

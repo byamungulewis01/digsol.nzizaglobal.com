@@ -203,18 +203,6 @@ const ContactPage = () => {
 
         {/* Schedule Consultation */}
       </div>
-      <section className="bg-gray-50 rounded-lg py-14 text-center">
-        <h2 className="text-2xl font-bold mb-4">
-          Schedule a Free Consultation
-        </h2>
-        <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-          Prefer to speak with us directly? Schedule a free consultation with
-          one of our digital experts to discuss your needs.
-        </p>
-        <Button>
-          Book a Consultation
-        </Button>
-      </section>
     </>
   );
 };

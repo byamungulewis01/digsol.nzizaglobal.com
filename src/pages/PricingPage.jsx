@@ -30,6 +30,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Link } from "react-router-dom";
 
 export default function PricingPage() {
   const [billingCycle, setBillingCycle] = useState("monthly");
@@ -720,9 +721,11 @@ export default function PricingPage() {
             technical business operates in the digital space.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button className="bg-white text-purple-900 hover:bg-gray-100">
-              Contact Sales
-            </Button>
+            <Link to="/contact">
+              <Button className="bg-white text-purple-900 hover:bg-gray-100">
+                Contact Sales
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

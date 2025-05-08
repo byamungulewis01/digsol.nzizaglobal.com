@@ -46,7 +46,9 @@ function Header() {
         <div className="flex items-center space-x-4">
           {/* Desktop Button */}
           <div className="hidden md:block">
-            <Button>Get a Free Quote</Button>
+            <Link to="/contact" target="_blank">
+              <Button>Get a Free Quote</Button>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -81,7 +83,9 @@ function Header() {
 
             {/* Mobile Button - Positioned below navigation */}
             <div className="pt-2 pb-3">
-              <Button className="w-full">Get a Free Quote</Button>
+              <Link to="/contact" target="_blank">
+                <Button className="w-full">Get a Free Quote</Button>
+              </Link>
             </div>
           </div>
         </div>
