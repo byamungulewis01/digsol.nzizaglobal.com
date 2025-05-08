@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 function ValueProposition() {
   return (
     <section className="w-full py-12 md:py-16 bg-white">
-      <div className="max-w-[85rem] px-4 md:px-6 mx-auto">
+      <div className="max-w-7xl px-4 md:px-6 mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-3xl font-bold tracking-tight">
             Bridging the Digital Gap in Engineering

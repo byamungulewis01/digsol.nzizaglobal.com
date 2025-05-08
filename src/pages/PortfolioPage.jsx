@@ -65,7 +65,7 @@ const PortfolioPage = () => {
   ];
 
   return (
-    <div className="max-w-[85rem] mx-auto px-4 py-12">
+    <div className="max-w-7xl mx-auto px-4 py-12">
       {/* Portfolio Header */}
       <section className="mb-16 text-center">
         <h1 className="text-4xl font-bold mb-6">Our Portfolio</h1>

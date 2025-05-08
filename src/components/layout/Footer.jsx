@@ -3,12 +3,12 @@ import Logo from '../common/Logo';
 
 function Footer() {
   return (
-    <footer className="w-full py-12 bg-gray-900 text-gray-100">
-      <div className="max-w-[85rem] px-4 md:px-6 mx-auto">
+    <footer className="w-full py-10 bg-gray-900 text-gray-100">
+      <div className="max-w-7xl px-4 md:px-6 mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
             <Link to="/" className="flex items-center space-x-2">
-              <Logo variant="light" />
+              <Logo />
             </Link>
             <p className="text-gray-400">
               Digital solutions for engineering firms across Rwanda and Tanzania.
@@ -19,7 +19,8 @@ function Footer() {
             <ul className="space-y-2">
               <li><Link to="/" className="text-gray-400 hover:text-white transition-colors">Home</Link></li>
               <li><Link to="/services" className="text-gray-400 hover:text-white transition-colors">Services</Link></li>
-              <li><Link to="/portfolio" className="text-gray-400 hover:text-white transition-colors">Portfolio</Link></li>
+              <li><Link to="/pricing" className="text-gray-400 hover:text-white transition-colors">Pricing</Link></li>
+              <li><Link to="/faq" className="text-gray-400 hover:text-white transition-colors">FAQ</Link></li>
               <li><Link to="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</Link></li>
             </ul>
           </div>

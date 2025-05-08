@@ -15,7 +15,7 @@ import {
 const ContactPage = () => {
   return (
     <>
-      <div className="container mx-auto px-4 py-12">
+      <div className="max-w-7xl mx-auto px-4 py-12">
         {/* Contact Header */}
         <section className="mb-16 text-center">
           <h1 className="text-4xl font-bold mb-6">Contact Us</h1>
@@ -203,7 +203,7 @@ const ContactPage = () => {
 
         {/* Schedule Consultation */}
       </div>
-      <section className="bg-gray-50 rounded-lg p-8 text-center">
+      <section className="bg-gray-50 rounded-lg py-14 text-center">
         <h2 className="text-2xl font-bold mb-4">
           Schedule a Free Consultation
         </h2>
@@ -211,7 +211,7 @@ const ContactPage = () => {
           Prefer to speak with us directly? Schedule a free consultation with
           one of our digital experts to discuss your needs.
         </p>
-        <Button className="bg-blue-600 hover:bg-blue-700">
+        <Button>
           Book a Consultation
         </Button>
       </section>
