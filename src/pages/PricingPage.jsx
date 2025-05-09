@@ -10,6 +10,8 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { MetaTags } from "@/lib/seo/MetaTags";
+import { motion } from "framer-motion";
 import {
   CheckCircle2,
   ChevronDown,
@@ -31,11 +33,27 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Link } from "react-router-dom";
+import { useAnimateOnScroll } from "@/lib/hooks/useAnimateOnScroll";
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+};
 
 export default function PricingPage() {
   const [billingCycle, setBillingCycle] = useState("monthly");
+  const { ref, controls, variants } = useAnimateOnScroll();
 
-  // Calculate annual price with 20% discount
   const calculateAnnualPrice = (monthlyPrice) => {
     const annualPrice = monthlyPrice * 12 * 0.8;
     return annualPrice.toFixed(0);
@@ -43,9 +61,19 @@ export default function PricingPage() {
 
   return (
     <div className="bg-gradient-to-b from-purple-50 to-white min-h-screen">
+      <MetaTags
+        title="Pricing Plans"
+        description="Flexible pricing plans for digital solutions. Transform your engineering business with our comprehensive service bundles."
+      />
+
       <div className="max-w-7xl mx-auto px-4 py-16">
         {/* Hero Section */}
-        <div className="text-center mb-16">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+          className="text-center mb-16"
+        >
           <h1 className="text-4xl font-bold text-purple-900 mb-4">
             Pricing Structure
           </h1>
@@ -54,10 +82,15 @@ export default function PricingPage() {
             business, through professional and continuous digital dominance.
             Grab your gate!
           </p>
-        </div>
+        </motion.div>
 
         {/* Billing Toggle */}
-        <div className="flex justify-center mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="flex justify-center mb-12"
+        >
           <Tabs
             defaultValue="monthly"
             className="w-64"
@@ -70,318 +103,345 @@ export default function PricingPage() {
               </TabsTrigger>
             </TabsList>
           </Tabs>
-        </div>
+        </motion.div>
 
         {/* Main Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
+        >
           {/* Fresher Bundle */}
-          <Card className="border-2 border-purple-100 shadow-md hover:shadow-lg transition-shadow duration-300">
-            <CardHeader className="bg-purple-50 rounded-t-lg">
-              <div className="flex justify-between items-center">
-                <CardTitle className="text-purple-900">
-                  Fresher Bundle
-                </CardTitle>
-                <Badge className="bg-purple-200 text-purple-800">
-                  Best for Micro
-                </Badge>
-              </div>
-              <CardDescription className="text-gray-600 font-light">
-                Ideal for micro businesses needing a well-managed website
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <div className="flex items-baseline mb-5">
-                <span className="text-3xl font-bold text-purple-900">
-                  $
-                  {billingCycle === "monthly" ? "50" : calculateAnnualPrice(50)}
-                </span>
-                <span className="text-gray-500 ml-1">
-                  /{billingCycle === "monthly" ? "month" : "year"}
-                </span>
-                {billingCycle === "monthly" && (
-                  <span className="text-sm text-gray-400 ml-2 line-through">
-                    $80
-                  </span>
-                )}
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    6 pages responsive website
-                  </span>
+          <motion.div variants={fadeInUp}>
+            <Card className="border-2 border-purple-100 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+              <CardHeader className="bg-purple-50 rounded-t-lg">
+                <div className="flex justify-between items-center">
+                  <CardTitle className="text-purple-900">
+                    Fresher Bundle
+                  </CardTitle>
+                  <Badge className="bg-purple-200 text-purple-800">
+                    Best for Micro
+                  </Badge>
                 </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    Hosting on shared server
+                <CardDescription className="text-gray-600 font-light">
+                  Ideal for micro businesses needing a well-managed website
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-6">
+                <div className="flex items-baseline mb-5">
+                  <span className="text-3xl font-bold text-purple-900">
+                    $
+                    {billingCycle === "monthly" ? "50" : calculateAnnualPrice(50)}
                   </span>
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    Domain name purchase
+                  <span className="text-gray-500 ml-1">
+                    /{billingCycle === "monthly" ? "month" : "year"}
                   </span>
+                  {billingCycle === "monthly" && (
+                    <span className="text-sm text-gray-400 ml-2 line-through">
+                      $80
+                    </span>
+                  )}
                 </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    1 SSL certificate
-                  </span>
+                <div className="space-y-2">
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      6 pages responsive website
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      Hosting on shared server
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      Domain name purchase
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      1 SSL certificate
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      Full written content
+                    </span>
+                  </div>
                 </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    Full written content
-                  </span>
+              </CardContent>
+              <CardFooter className="flex flex-col pt-0">
+                <div className="bg-purple-50 px-3 py-2 rounded-md text-sm text-purple-800 mb-4 w-full text-center">
+                  Delivery Time: 1 Week
                 </div>
-              </div>
-            </CardContent>
-            <CardFooter className="flex flex-col pt-0">
-              <div className="bg-purple-50 px-3 py-2 rounded-md text-sm text-purple-800 mb-4 w-full text-center">
-                Delivery Time: 1 Week
-              </div>
-              <Button className="w-full bg-purple-900 hover:bg-purple-800">
-                Get Started
-              </Button>
-            </CardFooter>
-          </Card>
+                <Link to="/contact" className="w-full">
+                  <Button className="w-full bg-purple-900 hover:bg-purple-800">
+                    Get Started
+                  </Button>
+                </Link>
+              </CardFooter>
+            </Card>
+          </motion.div>
 
           {/* Starter Bundle */}
-          <Card className="border-2 border-purple-200 shadow-md hover:shadow-lg transition-shadow duration-300">
-            <CardHeader className="bg-purple-50 rounded-t-lg">
-              <div className="flex justify-between items-center">
-                <CardTitle className="text-purple-900">
-                  Starter Bundle
-                </CardTitle>
-                <Badge className="bg-purple-200 text-purple-800">Popular</Badge>
-              </div>
-              <CardDescription className="text-gray-600 font-light">
-                Ideal for small businesses or serious startups
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <div className="flex items-baseline mb-5">
-                <span className="text-3xl font-bold text-purple-900">
-                  $
-                  {billingCycle === "monthly" ? "80" : calculateAnnualPrice(80)}
-                </span>
-                <span className="text-gray-500 ml-1">
-                  /{billingCycle === "monthly" ? "month" : "year"}
-                </span>
-                {billingCycle === "monthly" && (
-                  <span className="text-sm text-gray-400 ml-2 line-through">
-                    $140
-                  </span>
-                )}
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    Everything in the Fresher bundle
-                  </span>
+          <motion.div variants={fadeInUp}>
+            <Card className="border-2 border-purple-200 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+              <CardHeader className="bg-purple-50 rounded-t-lg">
+                <div className="flex justify-between items-center">
+                  <CardTitle className="text-purple-900">
+                    Starter Bundle
+                  </CardTitle>
+                  <Badge className="bg-purple-200 text-purple-800">Popular</Badge>
                 </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    Additional 4 pages
+                <CardDescription className="text-gray-600 font-light">
+                  Ideal for small businesses or serious startups
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-6">
+                <div className="flex items-baseline mb-5">
+                  <span className="text-3xl font-bold text-purple-900">
+                    $
+                    {billingCycle === "monthly" ? "80" : calculateAnnualPrice(80)}
                   </span>
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    5 business emails
+                  <span className="text-gray-500 ml-1">
+                    /{billingCycle === "monthly" ? "month" : "year"}
                   </span>
+                  {billingCycle === "monthly" && (
+                    <span className="text-sm text-gray-400 ml-2 line-through">
+                      $140
+                    </span>
+                  )}
                 </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    Team LinkedIn profile optimization
-                  </span>
+                <div className="space-y-2">
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      Everything in the Fresher bundle
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      Additional 4 pages
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      5 business emails
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      Team LinkedIn profile optimization
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      SEO optimizations
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      Google My Business setup
+                    </span>
+                  </div>
                 </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    SEO optimizations
-                  </span>
+              </CardContent>
+              <CardFooter className="flex flex-col pt-0">
+                <div className="bg-purple-50 px-3 py-2 rounded-md text-sm text-purple-800 mb-4 w-full text-center">
+                  Delivery Time: 2 Weeks
                 </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    Google My Business setup
-                  </span>
-                </div>
-              </div>
-            </CardContent>
-            <CardFooter className="flex flex-col pt-0">
-              <div className="bg-purple-50 px-3 py-2 rounded-md text-sm text-purple-800 mb-4 w-full text-center">
-                Delivery Time: 2 Weeks
-              </div>
-              <Button className="w-full bg-purple-900 hover:bg-purple-800">
-                Get Started
-              </Button>
-            </CardFooter>
-          </Card>
+                <Link to="/contact" className="w-full">
+                  <Button className="w-full bg-purple-900 hover:bg-purple-800">
+                    Get Started
+                  </Button>
+                </Link>
+              </CardFooter>
+            </Card>
+          </motion.div>
 
           {/* Growth Bundle */}
-          <Card className="border-2 border-purple-300 shadow-md hover:shadow-lg transition-shadow duration-300">
-            <CardHeader className="bg-purple-50 rounded-t-lg">
-              <div className="flex justify-between items-center">
-                <CardTitle className="text-purple-900">Growth Bundle</CardTitle>
-                <Badge className="bg-purple-200 text-purple-800">
-                  Best Value
-                </Badge>
-              </div>
-              <CardDescription className="text-gray-600 font-light">
-                Ideal for expanding businesses aiming to boost visibility
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <div className="flex items-baseline mb-5">
-                <span className="text-3xl font-bold text-purple-900">
-                  $
-                  {billingCycle === "monthly"
-                    ? "140"
-                    : calculateAnnualPrice(140)}
-                </span>
-                <span className="text-gray-500 ml-1">
-                  /{billingCycle === "monthly" ? "month" : "year"}
-                </span>
-                {billingCycle === "monthly" && (
-                  <span className="text-sm text-gray-400 ml-2 line-through">
-                    $210
-                  </span>
-                )}
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    Everything in the Starter bundle
-                  </span>
+          <motion.div variants={fadeInUp}>
+            <Card className="border-2 border-purple-300 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+              <CardHeader className="bg-purple-50 rounded-t-lg">
+                <div className="flex justify-between items-center">
+                  <CardTitle className="text-purple-900">Growth Bundle</CardTitle>
+                  <Badge className="bg-purple-200 text-purple-800">
+                    Best Value
+                  </Badge>
                 </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    Additional 2 pages
+                <CardDescription className="text-gray-600 font-light">
+                  Ideal for expanding businesses aiming to boost visibility
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-6">
+                <div className="flex items-baseline mb-5">
+                  <span className="text-3xl font-bold text-purple-900">
+                    $
+                    {billingCycle === "monthly"
+                      ? "140"
+                      : calculateAnnualPrice(140)}
                   </span>
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    2 Social Media platforms management
+                  <span className="text-gray-500 ml-1">
+                    /{billingCycle === "monthly" ? "month" : "year"}
                   </span>
+                  {billingCycle === "monthly" && (
+                    <span className="text-sm text-gray-400 ml-2 line-through">
+                      $210
+                    </span>
+                  )}
                 </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    Blogging (2 posts/month)
-                  </span>
+                <div className="space-y-2">
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      Everything in the Starter bundle
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      Additional 2 pages
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      2 Social Media platforms management
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      Blogging (2 posts/month)
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      3 Additional business emails
+                    </span>
+                  </div>
                 </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    3 Additional business emails
-                  </span>
+              </CardContent>
+              <CardFooter className="flex flex-col pt-0">
+                <div className="bg-purple-50 px-3 py-2 rounded-md text-sm text-purple-800 mb-4 w-full text-center">
+                  Delivery Time: 2 Weeks
                 </div>
-              </div>
-            </CardContent>
-            <CardFooter className="flex flex-col pt-0">
-              <div className="bg-purple-50 px-3 py-2 rounded-md text-sm text-purple-800 mb-4 w-full text-center">
-                Delivery Time: 2 Weeks
-              </div>
-              <Button className="w-full bg-purple-900 hover:bg-purple-800">
-                Get Started
-              </Button>
-            </CardFooter>
-          </Card>
+                <Link to="/contact" className="w-full">
+                  <Button className="w-full bg-purple-900 hover:bg-purple-800">
+                    Get Started
+                  </Button>
+                </Link>
+              </CardFooter>
+            </Card>
+          </motion.div>
 
           {/* Established Bundle */}
-          <Card className="border-2 border-purple-400 shadow-md hover:shadow-lg transition-shadow duration-300">
-            <CardHeader className="bg-purple-50 rounded-t-lg">
-              <div className="flex justify-between items-center">
-                <CardTitle className="text-purple-900">
-                  Established Bundle
-                </CardTitle>
-                <Badge className="bg-purple-200 text-purple-800">
-                  Advanced
-                </Badge>
-              </div>
-              <CardDescription className="text-gray-600 font-light">
-                Ideal for well-rooted businesses seeking to strengthen brand
-                authority
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <div className="flex items-baseline mb-5">
-                <span className="text-3xl font-bold text-purple-900">
-                  $
-                  {billingCycle === "monthly"
-                    ? "220"
-                    : calculateAnnualPrice(220)}
-                </span>
-                <span className="text-gray-500 ml-1">
-                  /{billingCycle === "monthly" ? "month" : "year"}
-                </span>
-                {billingCycle === "monthly" && (
-                  <span className="text-sm text-gray-400 ml-2 line-through">
-                    $317
-                  </span>
-                )}
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    Everything in the Growth bundle
-                  </span>
+          <motion.div variants={fadeInUp}>
+            <Card className="border-2 border-purple-400 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+              <CardHeader className="bg-purple-50 rounded-t-lg">
+                <div className="flex justify-between items-center">
+                  <CardTitle className="text-purple-900">
+                    Established Bundle
+                  </CardTitle>
+                  <Badge className="bg-purple-200 text-purple-800">
+                    Advanced
+                  </Badge>
                 </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    Additional 2 pages
+                <CardDescription className="text-gray-600 font-light">
+                  Ideal for well-rooted businesses seeking to strengthen brand
+                  authority
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-6">
+                <div className="flex items-baseline mb-5">
+                  <span className="text-3xl font-bold text-purple-900">
+                    $
+                    {billingCycle === "monthly"
+                      ? "220"
+                      : calculateAnnualPrice(220)}
                   </span>
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    2 Additional business emails
+                  <span className="text-gray-500 ml-1">
+                    /{billingCycle === "monthly" ? "month" : "year"}
                   </span>
+                  {billingCycle === "monthly" && (
+                    <span className="text-sm text-gray-400 ml-2 line-through">
+                      $317
+                    </span>
+                  )}
                 </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    2 Additional Social Media platforms
-                  </span>
+                <div className="space-y-2">
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      Everything in the Growth bundle
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      Additional 2 pages
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      2 Additional business emails
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      2 Additional Social Media platforms
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      Dedicated server hosting
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
+                    <span className="text-sm font-light text-gray-600">
+                      Subdomain with SSL certificate
+                    </span>
+                  </div>
                 </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    Dedicated server hosting
-                  </span>
+              </CardContent>
+              <CardFooter className="flex flex-col pt-0">
+                <div className="bg-purple-50 px-3 py-2 rounded-md text-sm text-purple-800 mb-4 w-full text-center">
+                  Delivery Time: 2 Weeks
                 </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-sm font-light text-gray-600">
-                    Subdomain with SSL certificate
-                  </span>
-                </div>
-              </div>
-            </CardContent>
-            <CardFooter className="flex flex-col pt-0">
-              <div className="bg-purple-50 px-3 py-2 rounded-md text-sm text-purple-800 mb-4 w-full text-center">
-                Delivery Time: 2 Weeks
-              </div>
-              <Button className="w-full bg-purple-900 hover:bg-purple-800">
-                Get Started
-              </Button>
-            </CardFooter>
-          </Card>
-        </div>
+                <Link to="/contact" className="w-full">
+                  <Button className="w-full bg-purple-900 hover:bg-purple-800">
+                    Get Started
+                  </Button>
+                </Link>
+              </CardFooter>
+            </Card>
+          </motion.div>
+        </motion.div>
 
         {/* Enterprise Section */}
-        <div className="mb-16">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="mb-16"
+        >
           <Card className="border-2 border-purple-500 bg-gradient-to-r from-purple-100 to-white">
             <CardContent className="pt-8 pb-8">
               <div className="flex flex-col md:flex-row justify-between items-center">
@@ -396,17 +456,25 @@ export default function PricingPage() {
                     and premium support.
                   </p>
                 </div>
-                <Button className="bg-purple-900 hover:bg-purple-800 px-8 py-6">
-                  <span className="mr-2">Contact Sales</span>
-                  <ArrowRight className="h-5 w-5" />
-                </Button>
+                <Link to="/contact">
+                  <Button className="bg-purple-900 hover:bg-purple-800 px-8 py-6">
+                    <span className="mr-2">Contact Sales</span>
+                    <ArrowRight className="h-5 w-5" />
+                  </Button>
+                </Link>
               </div>
             </CardContent>
           </Card>
-        </div>
+        </motion.div>
 
         {/* Custom Services Section */}
-        <div className="mb-12">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="mb-12"
+        >
           <h2 className="text-2xl font-bold text-purple-900 mb-6 text-center">
             Detailed Service Pricing
           </h2>
@@ -651,10 +719,16 @@ export default function PricingPage() {
               </Table>
             </TabsContent>
           </Tabs>
-        </div>
+        </motion.div>
 
         {/* FAQ Section */}
-        <div className="mb-16">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="mb-16"
+        >
           <h2 className="text-2xl font-bold text-purple-900 mb-6 text-center">
             Frequently Asked Questions
           </h2>
@@ -667,6 +741,7 @@ export default function PricingPage() {
               <AccordionContent>
                 Absolutely. Our services are flexible and can be combined to
                 suit your goals. You'll receive a detailed quote before we
+                
                 start.
               </AccordionContent>
             </AccordionItem>
@@ -709,10 +784,16 @@ export default function PricingPage() {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-        </div>
+        </motion.div>
 
         {/* Call to Action */}
-        <div className="bg-gradient-to-r from-purple-900 to-purple-700 rounded-xl p-8 text-center text-white">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="bg-gradient-to-r from-purple-900 to-purple-700 rounded-xl p-8 text-center text-white"
+        >
           <h2 className="text-2xl font-bold mb-4">
             Ready to transform your digital presence?
           </h2>
@@ -727,7 +808,7 @@ export default function PricingPage() {
               </Button>
             </Link>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
