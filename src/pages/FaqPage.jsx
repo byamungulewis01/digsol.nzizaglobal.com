@@ -185,32 +185,32 @@ const FaqPage = () => {
         structuredData={{
           "@context": "https://schema.org",
           "@type": "FAQPage",
-          "mainEntity": [
+          mainEntity: [
             {
               "@type": "Question",
-              "name": "What digital services do you offer for engineering businesses?",
-              "acceptedAnswer": {
+              name: "What digital services do you offer for engineering businesses?",
+              acceptedAnswer: {
                 "@type": "Answer",
-                "text": "We offer comprehensive digital services including web development, social media management, and content creation specifically tailored for engineering businesses."
-              }
+                text: "We offer comprehensive digital services including web development, social media management, and content creation specifically tailored for engineering businesses.",
+              },
             },
             {
               "@type": "Question",
-              "name": "How long does it take to develop a website?",
-              "acceptedAnswer": {
+              name: "How long does it take to develop a website?",
+              acceptedAnswer: {
                 "@type": "Answer",
-                "text": "Website development timeline varies based on complexity, typically ranging from 4-8 weeks for a complete engineering business website."
-              }
+                text: "Website development timeline varies based on complexity, typically ranging from 4-8 weeks for a complete engineering business website.",
+              },
             },
             {
               "@type": "Question",
-              "name": "Do you provide ongoing support after website launch?",
-              "acceptedAnswer": {
+              name: "Do you provide ongoing support after website launch?",
+              acceptedAnswer: {
                 "@type": "Answer",
-                "text": "Yes, we provide comprehensive ongoing support including maintenance, updates, and technical assistance to ensure your website runs smoothly."
-              }
-            }
-          ]
+                text: "Yes, we provide comprehensive ongoing support including maintenance, updates, and technical assistance to ensure your website runs smoothly.",
+              },
+            },
+          ],
         }}
       />
       <div className="bg-gradient-to-b from-purple-50 to-white">
@@ -219,87 +219,66 @@ const FaqPage = () => {
           <div className="absolute inset-0 bg-primary/5 -skew-y-6"></div>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
             <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={fadeInUp}
+              initial="hidden"
+              animate="visible"
+              variants={fadeInUp}
               className="max-w-3xl mx-auto text-center"
-        >
+            >
               <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-            Frequently Asked Questions
-          </h1>
+                Frequently Asked Questions
+              </h1>
               <p className="text-lg text-muted-foreground mb-8">
-                Find answers to common questions about our digital services and solutions for engineering businesses.
-          </p>
+                Find answers to common questions about our digital services and
+                solutions for engineering businesses.
+              </p>
             </motion.div>
           </div>
         </section>
 
         {/* Main Content */}
         <div className="container mx-auto px-4 py-12">
-        {/* FAQ Categories */}
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
-        >
-          <Tabs defaultValue="general" className="mb-8">
-            <div className="flex justify-center mb-8">
-              <TabsList className="grid grid-cols-2 md:grid-cols-5 w-full max-w-2xl">
-                    {faqCategories.map((category) => (
-                      <TabsTrigger key={category.id} value={category.id}>
-                        {category.title}
-                      </TabsTrigger>
-                    ))}
-              </TabsList>
-            </div>
+          {/* FAQ Categories */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+          >
+            <Tabs defaultValue="general" className="mb-8">
+              <div className="flex justify-center mb-8">
+                <TabsList className="grid grid-cols-2 md:grid-cols-5 w-full max-w-2xl">
+                  {faqCategories.map((category) => (
+                    <TabsTrigger key={category.id} value={category.id}>
+                      {category.title}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </div>
 
-                {faqCategories.map((category) => (
-                  <TabsContent key={category.id} value={category.id}>
-              <motion.div
-                variants={fadeInUp}
-                initial="hidden"
-                animate="visible"
-              >
-                <Accordion
-                  type="single"
-                  collapsible
-                  className="max-w-3xl mx-auto"
-                >
-                        {category.items.map((item, index) => (
-                          <AccordionItem key={index} value={`item-${index + 1}`}>
-                            <AccordionTrigger>{item.question}</AccordionTrigger>
-                            <AccordionContent>{item.answer}</AccordionContent>
-                  </AccordionItem>
-                        ))}
-                </Accordion>
-              </motion.div>
-            </TabsContent>
-                ))}
+              {faqCategories.map((category) => (
+                <TabsContent key={category.id} value={category.id}>
+                  <motion.div
+                    variants={fadeInUp}
+                    initial="hidden"
+                    animate="visible"
+                  >
+                    <Accordion
+                      type="single"
+                      collapsible
+                      className="max-w-3xl mx-auto"
+                    >
+                      {category.items.map((item, index) => (
+                        <AccordionItem key={index} value={`item-${index + 1}`}>
+                          <AccordionTrigger>{item.question}</AccordionTrigger>
+                          <AccordionContent>{item.answer}</AccordionContent>
+                        </AccordionItem>
+                      ))}
+                    </Accordion>
+                  </motion.div>
+                </TabsContent>
+              ))}
             </Tabs>
-              </motion.div>
+          </motion.div>
         </div>
-
-        {/* CTA Section */}
-        <section className="py-16 bg-primary text-primary-foreground">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-              <motion.div
-                initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-                variants={fadeInUp}
-            >
-              <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Digital Presence?</h2>
-              <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-                Let's work together to build your engineering business's digital future.
-              </p>
-              <Link to="/contact">
-                <Button variant="secondary" size="lg">
-                  Get Started
-                </Button>
-              </Link>
-              </motion.div>
-          </div>
-        </section>
       </div>
 
       {/* Didn't Find Your Answer */}
@@ -310,7 +289,7 @@ const FaqPage = () => {
         variants={fadeInUp}
         className="bg-fuchsia-50/70 rounded-lg py-16 text-center"
       >
-        <h2 className="text-2xl font-bold mb-4">Didn't Find Your Answer?</h2>
+        <h2 className="text-3xl font-bold mb-4">Didn't Find Your Answer?</h2>
         <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
           Our team is here to help. Contact us with your specific questions and
           we'll get back to you as soon as possible.
