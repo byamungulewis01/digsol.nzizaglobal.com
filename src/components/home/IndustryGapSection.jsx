@@ -40,7 +40,7 @@ const IndustryGapSection = () => {
 
   return (
     <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="container mx-auto px-4">
         <motion.div
           ref={ref}
           initial="hidden"
@@ -52,7 +52,7 @@ const IndustryGapSection = () => {
             Closing the Digital Gap in Infrastructure
           </h2>
           <div className="w-24 h-1 bg-primary mx-auto mb-6"></div>
-          <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+          <p className="text-sm md:text-md lg:text-lg text-muted-foreground max-w-3xl mx-auto">
             Many infrastructure and construction companies are securing
             contracts with minimal digital presence. Our mission is to unlock
             their full potential through strategic digital transformation.

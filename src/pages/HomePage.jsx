@@ -6,7 +6,8 @@ import { motion } from "framer-motion";
 import { useAnimateOnScroll } from "@/lib/hooks/useAnimateOnScroll";
 import HeroSection from "@/components/home/HeroSection";
 import IndustryGapSection from "@/components/home/IndustryGapSection";
-import ValueProposition from "@/components/home/ValueProposition";
+import ServicesSection from "@/components/home/ServicesSection";
+import WhyChooseUs from "@/components/home/WhyChooseUs";
 
 export default function HomePage() {
   const { ref, controls, variants } = useAnimateOnScroll();
@@ -14,14 +15,28 @@ export default function HomePage() {
   return (
     <>
       <MetaTags
-        title="Home"
-        description="Transform your engineering business with powerful digital solutions. We handle your digital presence while you focus on your core business."
+        title="Digital Solutions for Engineering Businesses"
+        description="Transform your engineering business with our comprehensive digital solutions. Expert web development, social media management, and content creation services tailored for engineering companies."
+        keywords="digital solutions, engineering business, web development, social media management, content creation, engineering website, digital marketing, engineering services"
+        ogImage="/images/home-og.jpg"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "Digital Solutions",
+          "url": "https://digsol.nzizaglobal.com",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://digsol.nzizaglobal.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }}
       />
       
       <div className="bg-white">
         <HeroSection />
         <IndustryGapSection />
-        <ValueProposition />
+        <ServicesSection />
+        <WhyChooseUs />
 
         {/* Testimonials Section */}
         <section className="w-full py-12 md:py-16 bg-gray-50">
@@ -80,7 +95,7 @@ export default function HomePage() {
           transition={{ duration: 0.8 }}
           className="w-full py-12 md:py-24 bg-primary text-primary-foreground"
         >
-          <div className="max-w-7xl px-4 md:px-6 mx-auto">
+          <div className="container px-4 md:px-6 mx-auto">
             <div className="text-center max-w-3xl mx-auto">
               <h2 className="text-3xl font-bold tracking-tight mb-4">
                 Ready to Transform Your Digital Presence?

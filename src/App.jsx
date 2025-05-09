@@ -6,8 +6,9 @@ import PortfolioPage from "@/pages/PortfolioPage";
 import ContactPage from "@/pages/ContactPage";
 import PricingPage from "@/pages/PricingPage";
 import FaqPage from "@/pages/FaqPage";
+import AboutPage from "@/pages/AboutPage";
 import { useEffect } from "react";
-import LandingPage from "./pages/LandingPage";
+import NotFoundPage from "@/pages/NotFoundPage";
 
 function ScrollToHashOrTop() {
   const { pathname, hash } = useLocation();
@@ -36,13 +37,13 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
-          <Route path="landing-page" element={<LandingPage />} />
+          <Route path="about" element={<AboutPage />} />
           <Route path="services" element={<ServicesPage />} />
           <Route path="portfolio" element={<PortfolioPage />} />
           <Route path="contact" element={<ContactPage />} />
           <Route path="pricing" element={<PricingPage />} />
           <Route path="faq" element={<FaqPage />} />
-          <Route path="*" element={<div>Page not found</div>} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </>

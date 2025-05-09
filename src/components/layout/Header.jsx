@@ -9,6 +9,7 @@ function Header() {
 
   const navLinks = [
     { path: "/", label: "Home", exact: true },
+    { path: "/about", label: "About" },
     { path: "/services", label: "Services" },
     { path: "/pricing", label: "Pricing" },
     // { path: "/portfolio", label: "Portfolio" },
@@ -18,7 +19,7 @@ function Header() {
 
   return (
     <header className="sticky top-0 z-40 w-full bg-white border-b border-gray-200">
-      <div className="max-w-7xl flex items-center justify-between h-16 px-4 mx-auto sm:px-6">
+      <div className="container flex items-center justify-between h-16 px-4 mx-auto sm:px-6">
         {/* Logo */}
         <div className="flex items-center">
           <Link to="/" className="flex items-center space-x-2">
